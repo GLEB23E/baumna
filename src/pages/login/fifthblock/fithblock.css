@@ -1,0 +1,114 @@
+.fifth_container {
+    width: 100%;
+    height: 100vh; /* Высота экрана */
+    background-color: #24A367;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Центровка контента по вертикали */
+}
+
+.fifth_content {
+    display: flex;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 50px; /* Отступ между fifth_block и fith_info */
+}
+
+.fifth_block {
+    display: flex;
+    flex-direction: column; /* Элементы расположены в колонку */
+    justify-content: space-between; /* Первый блок прижат к верху, последний к низу */
+    align-items: center; /* Центровка блоков по горизонтали */
+    height: 100%; /* Занимает всю высоту родителя */
+    gap: 15px;
+}
+
+.fifth_block1 {
+    width: 145.135px;
+    height: 99.633px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #24A367 0%, #FFF 100%);
+}
+
+.fifth_block2, .fifth_block4 {
+    width: 210.135px;
+    height: 144.255px;
+    border-radius: 10px;
+    background: #D9D9D9;
+}
+
+.fifth_block3 {
+    width: 260.033px;
+    height: 178.509px;
+    border-radius: 10px;
+    background: #D9D9D9;
+}
+
+.fifth_block5 {
+    width: 145.135px;
+    height: 99.633px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #FFF 0%, #24A367 100%);
+}
+
+
+.fith_info {
+    margin-left: 50px;
+}
+.fith_info h1 {
+    color: #FFF;
+    font-family: Raleway;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.fith_num {
+    margin-top: 50px;
+    display: flex;
+    align-items: baseline; /* Выравниваем элементы по их базовой линии текста */
+}
+
+.fith_num h1 {
+    color: #FA9F42;
+    font-family: Raleway;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1; /* Убираем лишний отступ внутри строки */
+    margin: 0; /* Убираем стандартные отступы */
+}
+
+.fith_num p {
+    color: #FFF;
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1; /* Убираем лишний отступ внутри строки */
+    margin: 0; /* Убираем стандартные отступы */
+    margin-left: 10px; /* Отступ между h1 и p */
+}
+.fith_info button {
+    margin-top: 50px;
+    width: 230px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 0px 20px;
+    background: #FA9F42;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--light, #FDFDFD);
+    text-align: center;
+    font-family: Raleway-small;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 16px */
+}

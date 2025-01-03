@@ -1,0 +1,103 @@
+.fourth_container {
+    height: 100vh;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fourth_content {
+    display: flex;
+    padding-left: 40px;
+    padding-right: 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+.fourth_info {
+    width: 50%;
+    margin-left: 90px;
+}
+.fourth_info h1 {
+    color: #24A367;
+    font-family: Raleway-small;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 150%; /* 90px */
+}
+.fourth_info p {
+    color: #353A5A;
+    font-family: Raleway;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 30px */
+    margin-top: 40px;
+}
+
+.fourth_info button {
+    width: 230px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 0px 20px;
+    background: #24A367;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fourth_info h2 {
+    color: var(--light, #FFFFFF);
+    text-align: center;
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 16px */
+}
+
+.fourth_carousel {
+    display: flex;
+    justify-content: space-between; /* Равномерное расположение стрелок и контента */
+    align-items: center; /* Центровка стрелок и контента по вертикали */
+    gap: 30px; /* Расстояние между стрелками и сеткой */
+}
+
+.fourth_carousel img {
+    width: 26.712px;
+    height: 43.212px;
+    cursor: pointer; /* Указывает на кликабельность */
+}
+
+.fourth_carousel_subjects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 столбца одинаковой ширины */
+    grid-template-rows: repeat(2, auto); /* 2 строки */
+    gap: 30px; /* Отступы между элементами */
+    padding: 10px; /* Внутренний отступ для всей сетки */
+    align-items: center; /* Центровка элементов внутри сетки */
+}
+
+.fourth_carousel_subjects_2 img {
+    border-radius: 0px 20px;
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+}
+.fourth_carousel_subjects_1 img {
+    border-radius: 20px 0px 0px 0px;
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+}
+
+.fourth_carousel_subjects h1 {
+    color: #000;
+    text-align: center;
+    font-family: Raleway, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1; /* 16px */
+}

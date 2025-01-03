@@ -1,30 +1,31 @@
-.second_container {
+.third_container {
     height: 100vh;
     width: 100%;
-    background-color: #F4F5F9;
+    background-color: #24A367;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.second_content {
+.third_content {
     display: flex;
     padding-left: 40px;
     justify-content: center;
     align-items: center;
 }
-.second_info {
+.third_info {
     width: 50%;
+    margin-left: 90px;
 }
-.second_info h1 {
-    color: #24A367;
+.third_info h1 {
+    color: #FFFFFF;
     font-family: Raleway-small;
     font-size: 60px;
     font-style: normal;
     font-weight: 900;
     line-height: 150%; /* 90px */
 }
-.second_info p {
-    color: #353A5A;
+.third_info p {
+    color: #FFFFFF;
     font-family: Raleway;
     font-size: 20px;
     font-style: normal;
@@ -33,20 +34,20 @@
     margin-top: 40px;
 }
 
-.second_info button {
+.third_info button {
     width: 230px;
     height: 56px;
     flex-shrink: 0;
     border-radius: 0px 20px;
-    background: #24A367;
+    background: #FA9F42;
     border: 0;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.second_info h2 {
-    color: var(--light, #FDFDFD);
+.third_info h2 {
+    color: var(--light, #FFFFFF);
     text-align: center;
     font-family: Raleway;
     font-size: 16px;
@@ -55,19 +56,18 @@
     line-height: 100%; /* 16px */
 }
 
-.second_card {
+.third_card {
     width: 299.273px;
     height: 434.11px;
-    margin-left: 90px;
-    border-radius: 100px 10px 10px 10px;/* Радиус скругления */
-    border: 10px solid #24A367; /* Белый контур */
+    border-radius: 10px 100px 10px 10px;/* Радиус скругления */
+    border: 10px solid #FFFFFF; /* Белый контур */
     background-color: transparent; /* Прозрачный фон */
 }
 
-.second_card img {
+.third_card img {
     width: 299.273px;
     height: 434.11px;
     flex-shrink: 0;
     border-radius: 10px 10px 10px 10px;
-    transform: translate(20px, 20px);
+    transform: translate(-45px, 30px);
 }
