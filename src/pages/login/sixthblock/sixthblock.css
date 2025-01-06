@@ -1,0 +1,78 @@
+.sixth_container {
+    height: 100vh;
+    width: 100%;
+    background: rgb(2,0,36);
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 0%, rgba(9,9,121,1) 0%, rgba(225,229,233,1) 0%, rgba(7,50,148,1) 0%, rgba(204,214,223,1) 0%, rgba(196,209,220,1) 35%, rgba(234,235,237,1) 72%, rgba(196,209,220,1) 82%);
+    display: flex;
+    justify-content: flex-start; /* Размещаем контент слева */
+    align-items: center;
+    position: relative; /* Для абсолютного позиционирования дочерних элементов */
+}
+
+.sixth_content {
+    display: flex;
+    flex-direction: column; /* Ставим элементы вертикально */
+    justify-content: center;
+    align-items: flex-start; /* Выравниваем текст по левому краю */
+    padding: 40px;
+    gap: 50px;
+    width: 50%; /* Ограничиваем ширину контентного блока */
+    z-index: 1; /* Контент поверх фона */
+}
+
+.sixth_info {
+    width: 100%; /* Растягиваем на всю ширину родителя */
+}
+
+.sixth_info h1 {
+    color: #353A5A;
+    font-family: Raleway-small;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 150%; /* 90px */
+}
+
+.sixth_info p {
+    color: #353A5A;
+    font-family: Raleway;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 30px */
+    margin-top: 40px;
+}
+
+.sixth_info button {
+    width: 230px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 0px 20px;
+    background: #24A367;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sixth_info h2 {
+    color: var(--light, #FFFFFF);
+    text-align: center;
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 16px */
+}
+
+.sixth_girl {
+    position: absolute; /* Абсолютное позиционирование */
+    bottom: 0; /* Прижимаем к низу */
+    right: 0; /* Прижимаем к правой стороне */
+    z-index: 0; /* Фон позади текста */
+}
+
+.sixth_girl img {
+    height: 80vh;
+    object-fit: contain; /* Гарантирует, что изображение не будет обрезано */
+}

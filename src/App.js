@@ -5,6 +5,8 @@ import Firstblock from './pages/login/firstblock/firstblock';
 import Secondblock from './pages/login/secondblock/secondblock';
 import Fourthblock from './pages/login/fourthblock/fourthblock';
 import Fithblock from './pages/login/fifthblock/fithblock';
+import Sixthblock from './pages/login/sixthblock/sixthblock';
+import Footer from './footer/footer';
 function App() {
   return (
     <div className="App">
@@ -13,6 +15,8 @@ function App() {
       <Thirdblock />
       <Fourthblock />
       <Fithblock />
+      <Sixthblock />
+      <Footer />
     </div>
   );
 }
