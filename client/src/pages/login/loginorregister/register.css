@@ -131,15 +131,15 @@
     justify-content: center;
     align-items: center;
     width: 350px;
-    justify-content: center;
-    align-items: flex-start;
+    height: 40px;
+    align-items: center;
     border-radius: 16px;
     border: 2px solid #FA9F42;
     background: #FA9F42;
     margin-top: 40px;
 }
 
-.register_button h1 {
+.register_button {
     color: #FFF;
     text-align: center;
     font-family: Raleway-small;
