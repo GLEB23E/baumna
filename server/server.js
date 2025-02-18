@@ -11,11 +11,9 @@ app.use(express.json());
 
 const uri = 'mongodb://127.0.0.1:27017';
 const client = new MongoClient(uri);
+const { ObjectId } = require('mongodb');
 
-app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'none'; font-src 'self' data:;");
-  next();
-});
+
 
 async function run() {
   try {
@@ -117,6 +115,25 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+app.post('/api/addstore', async (req, res) => {
+  try {
+    console.log('Received data:', req.body); 
+    const database = client.db('baumna_data');
+    const collection = database.collection('shop');
+    const check = await collection.insertOne({ name: req.body.name, surname: req.body.surname, phone: req.body.phone, descr: req.body.descr, price: req.body.price, imgpath: req.body.path})
+    if(check) {
+      return res.status(200).json({ error: 'added' });
+    } else {
+      return res.status(500).json({ error: 'failed add' });
+    }
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'add store failed' });
+  }
+})
+
+
 app.post('/api/login', async (req, res) => {
   try {
     console.log('Received data:', req.body); 
@@ -157,6 +174,25 @@ app.get('/api/store', async (req, res) => {
   }
 });
 
+app.post('/api/userinfo', async (req, res) => {
+  try {
+    console.log('Received data:', req.body); 
+    const database = client.db('baumna_data');
+    const collection = database.collection('users');
+    console.log(req.body.id)
+    const check = await collection.findOne({ _id: new ObjectId(req.body.id) });
+
+    if (check) {
+      res.status(200).json(check)
+    } else {
+      res.status(500).json({ error: 'fet failed' });
+    }
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'get failed' });
+  }
+});
 
 app.listen(3001, () => {
   console.log('Server running on http://localhost:3001');

@@ -1,20 +1,172 @@
 import React, { useEffect } from "react"
 import { useState } from "react"
 import './mainpage.css'
-
+import { response } from "express"
+const levenshtein = require('levenshtein');
 const MainPage = () => {
     const [page, setPage] = useState(0)
-
+    const [fileName, setFileName] = useState('');
     const [file, setFile] = useState(null);
+    const id = localStorage.getItem('_Id');
+    const [sear, setSearch] = useState()
+    const [info, setInfo] = useState({
+        descr: '',
+        phone: '',
+        price: '',
+        name: '',
+        surname: '',
+        path: ''
 
+    })
+    const [screen, setScreen] = useState(true)
+    
+    const [best, setBest] = useState<{ key: string; value: string; distance: number }[]>([]);
+//const block = document.getElementById('cards');
+//block.innerHTML = '';
+    useEffect(() => {
+        const dop = async () => {
+            setBest([])
+            const data = await getData()
+            const dataArray = Array.isArray(data) ? data : Object.values(data);
+            const text_arr = {}
+            if (dataArray){
+                dataArray.forEach(element => {
+                    if (element) {
+                        text_arr[element.phone] = element.descr;
+                    }
+                });
+            }
+        
+            if (sear) {
+                const distances = Object.entries(text_arr).map(([key, value]) => {
+                    
+                    const distance = new levenshtein(value.toLowerCase(), sear.toLowerCase());
+                    return { key, value, distance: distance.distance };
+                });
+                distances.sort((a, b) => a.distance - b.distance);
+                setBest(distances.slice(0, 3));
+            }
+        }
+        dop()
+    }, [sear]);
+    
+    useEffect(() => {
+        const block = document.getElementById('cards');
+        const pages = document.getElementById('pages')
+        let tt = []
+        if(best && block && pages && sear) {
+            console.log(best)
+            block.innerHTML = '';
+            pages.style.display = 'none'
+            
+            const show3 = async () => {
+                tt = []
+                let data = await getData()
+    
+                best.forEach((element) => {
+                    block.innerHTML = '';
+                    console.log(element)
+                    tt.push(data.find(item => item.phone === element.key))
+                })
+    
+                data = []
+               
+                tt.forEach(element => {
+
+                    if(block) {
+                        const el = inner(element.name, element.surname, element.descr, element.phone, element.price, element.imgpath)
+            
+                        block.innerHTML += el;
+                    }
+                });
+                
+            }
+            show3()
+        } else {
+            
+            
+            const render = async () => {
+                
+                if (block) {
+                    block.innerHTML = '';
+                }
+                
+                const data = await getData()
+                const data2 = data.slice(0, 3)
+                block.innerHTML = '';
+                data2.forEach(element => {
+                    if(block) {
+                        const el = inner(element.name, element.surname, element.descr, element.phone, element.price, element.imgpath)
+                        block.innerHTML += el;
+                    }
+                });
+                pages.style.display = 'flex'
+            }
+            render()
+        }
+    }, [best, sear]);
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+    if (e.target.files.length > 0) {
+        setFileName(e.target.files[0].name);
+      }
   };
+  
+  const search = (e) => {
+    setSearch(e.target.value)
 
+  }
+
+
+  const handleInfo = (e) => {
+    setInfo({
+        ...info, 
+        [e.target.getAttribute('name')]: e.target.value
+    })
+  }
+
+
+  useEffect(() => {
+    const fs = document.getElementById('fs')
+    const ss = document.getElementById('ss')
+    if (fs && ss) {
+        if (screen) {
+            ss.style.display = 'none'
+            fs.style.display = 'block'
+            
+
+        } else {
+            fs.style.display = 'none'
+            ss.style.display = 'block'
+        }
+    }
+  }, [])
+  useEffect(() => {
+    const fs = document.getElementById('fs')
+    const ss = document.getElementById('ss')
+    if (fs && ss) {
+        if (screen) {
+            ss.style.display = 'none'
+            fs.style.display = 'block'
+            
+        } else {
+            fs.style.display = 'none'
+            ss.style.display = 'block'
+        }
+    }
+  }, [screen])
+
+  const onsubs = () => {
+    setScreen(true)
+    window.location.reload();
+  }
+  const onsuba = () => {
+    setScreen(false)
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!file) {
-      alert('Please select a file to upload');
+    if (!file  || !info.descr || !info.phone || !info.price) {
+      alert('Заполните все данные');
       return;
     }
 
@@ -26,11 +178,15 @@ const MainPage = () => {
         method: 'POST',
         body: formData,
       });
-
       if (response.ok) {
         const result = await response.json();
+        console.log(result.filePath)
+        await setInfo({
+            ...info,
+            path: result.filePath
+        })
         alert('File uploaded successfully!');
-        console.log(result);
+        
       } else {
         alert('File upload failed');
       }
@@ -39,13 +195,68 @@ const MainPage = () => {
       alert('File upload failed');
     }
   };
+  useEffect(() => {
+    const all = async () => {
+        const getname = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/api/userinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: id })  
+                });
+        
+                if (response.ok) {
+                    const data = await response.json();  
+                    console.log(data);  
+                    return data
+    
+                } else {
+                    console.error('Failed to fetch data:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error during fetch:', error);
+            }
+        };
+        
+        
+        if (id) {
+            const sn = await getname();
+            console.log(sn)
+            setInfo({
+                ...info,
+                name: sn.firstName,
+                surname: sn.lastName
+            })
+        }
+        
+        if (info.path && info.descr && info.name && info.surname && info.phone && info.price) {
+            const sendnewstore = async () => {
+                const response = await fetch('http://localhost:3001/api/addstore', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    },
+                    body: JSON.stringify(info)
+                }) 
+                if (!response.ok) throw new Error('add failed');
+        
+            }
+            sendnewstore()
+        } else {
+            return
+        }
+    } 
+    all()
+    
+  }, [info.path])
 
 
-
-
-    const inner = (name, surnname, descr, phone, price) => {
+    const inner = (name, surnname, descr, phone, price, path) => {
+        
         const el = `<div class="infoi">
-                        <img src="logo.png" alt="face" />
+                        <img class="cover" src="http://localhost:3001${path}" alt="face" />
                         <div class="info_fo">
                             <div class="fullname">
                                 <h2 class="namei">${name}</h2>
@@ -78,7 +289,7 @@ const MainPage = () => {
     useEffect(() => {
         const addCard = async () => {
             console.log(page)
-            const data = await getData( )
+            const data = await getData()
             const block = document.getElementById('cards');
             const pages = document.getElementById('pages')
             if (block) {
@@ -90,7 +301,7 @@ const MainPage = () => {
                 }
                 data.forEach(element => {
                     if(block) {
-                        const el = inner(element.name, element.surname, element.descr, element.phone, element.price)
+                        const el = inner(element.name, element.surname, element.descr, element.phone, element.price, element.imgpath)
                         block.innerHTML += el;
                     }
                 });
@@ -101,7 +312,7 @@ const MainPage = () => {
                 }
                 mydata.forEach(element => {
                     if(block) {
-                        const el = inner(element.name, element.surname, element.descr, element.phone, element.price)
+                        const el = inner(element.name, element.surname, element.descr, element.phone, element.price, element.imgpath)
                         block.innerHTML += el;
                     }
                 });
@@ -140,31 +351,31 @@ const MainPage = () => {
                         <img src="logo.png" alt="sur" />
                         <div className="nameinf">
                             <h2 className="name">
-                                ИМЯ
+                                {info.name}
                             </h2>
                             <h2 className="surname">
-                                ФАМИЛИЯ
+                                {info.surname}
                             </h2>
                         </div>
                     </div>
                     <div className="line">
                     </div>
-                    <div className="store">
+                    <div onClick={onsubs} className="store">
                         <img src="logo.png" alt="store" />
                         <h2>БИРЖА</h2>
                     </div>
                     <div className="line2">
                     </div>
-                    <div className="uppload">
+                    <div onClick={onsuba} className="uppload">
                         <img src="logo.png" alt="plus" />
                         <h2>ДОБАВИТЬ  ОБЪЯВЛЕНИЕ</h2>
                     </div>
                     <div className="line2"></div>
                 </div>
             </div>
-            <div className="storei">
+            <div id='fs' className="storei">
                 <div className="input">
-                    <input type="text" />
+                    <input onChange={search} type="text" />
                     <img src="logo.png" alt="search" />
                 </div>
                 <div id='cards' className="cards"></div>
@@ -178,19 +389,49 @@ const MainPage = () => {
                         <div className="e">7</div>
                 </div>
             </div>
-            <div className="add">
+            <div  id='ss' className="add">
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="image">Choose a file to upload:</label>
                     <input
                         type="file"
-                        name="image"
                         id="image"
+                        name="image"
                         accept="image/*"
                         onChange={handleFileChange}
-                        required
+                        className="file-input"
                     />
-                    <button type="submit">Upload</button>
+                    <label htmlFor="image" className="file-label">
+                        {fileName ? fileName : "Загрузите изображение"}
+                    </label>
+                    <textarea
+                        id="descr"
+                        name="descr"
+                        onChange={handleInfo}
+                        className="descr-input"
+                        placeholder="Описание"
+                    />
+                    <div className="df">
+                        <input
+                            type="text"
+                            id="num"
+                            name="phone"
+                            accept="number"
+                            onChange={handleInfo}
+                            className="num-input"
+                            placeholder="телеграм / номер"
+                        />
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            accept="number"
+                            onChange={handleInfo}
+                            className="price-input"
+                            placeholder="цена в руб"
+                        />
+                    </div>
+                    <button className="sendButton" type="submit">Загрузить</button>
                 </form>
+                
             </div>
         </div>
     )

@@ -9,6 +9,7 @@
     "cra-template": "1.2.0",
     "crypto-browserify": "^3.12.1",
     "crypto-js": "^4.2.0",
+    "levenshtein": "^1.0.5",
     "mongodb": "^6.13.0",
     "mongoose": "^8.10.1",
     "node-libs-browser": "^2.2.1",

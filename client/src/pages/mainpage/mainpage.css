@@ -98,11 +98,7 @@
 .cards{
     margin-top: 50px;
 }
-.infoi img {
-    width: 200px;
-    height: 200px;
-    background-size: cover;
-}
+
 
 .fullname {
     display: flex;
@@ -138,4 +134,104 @@
 }
 .pagesofcards div {
     color: #0a04048e;
+}
+
+.add {
+    margin-left: 230px;
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+}
+.photoadd {
+    width: 300px;
+    height: 300px;
+}
+
+
+.file-input {
+    display: none;
+  }
+  
+  .file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 100%;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    color: #666;
+    background-color: transparent;
+    transition: all 0.3s;
+  }
+  
+  .file-label:hover {
+    border-color: #aaa;
+    color: #444;
+  }
+.sendButton {
+    width: 100px;
+    height: 40px;
+    margin-left: 155px;
+    border: 2px solid #0a04048e;
+    background-color: #ffffffd0;
+    border-radius: 20px;
+    margin-top: 40px;
+}
+
+.descr-input {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    width: 380px;
+    margin-top: 30px;
+    height: 300px;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    resize: none;
+}
+.num-input {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    width: 150px;
+    margin-top: 30px;
+    height: 40;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+}
+.df {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.price-input {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    width: 150px;
+    margin-top: 30px;
+    height: 40;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+}
+.cover {
+    object-fit: cover;
+    height: 150px;
+    width: 150px;
 }

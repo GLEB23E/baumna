@@ -46,7 +46,7 @@ function Login() {
       const data =  await response.json()
       console.log(data.userId)
       
-      localStorage.setItem('userId', response.userId);
+      await localStorage.setItem('_Id', data.userId);
       navigate('/main');
 
       setLoading(false); 
