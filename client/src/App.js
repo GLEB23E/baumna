@@ -1,4 +1,5 @@
 import './App.css';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Thirdblock from './pages/login/thirdblock/thirdblock';
 import Firstblock from './pages/login/firstblock/firstblock';
@@ -9,6 +10,7 @@ import Sixthblock from './pages/login/sixthblock/sixthblock';
 import Footer from './footer/footer';
 import Register from './pages/login/loginorregister/register';
 import Login from './pages/login/loginorregister/login';
+import MainPage from './pages/mainpage/mainpage.tsx'; 
 function OntutorPage() {
   return (
     <div>
@@ -51,6 +53,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/login" element={<LoginW />} />
+        </Routes>
+        <Routes>
+          <Route path="/main" element={<MainPage />} />
         </Routes>
         <Footer />
       </div>

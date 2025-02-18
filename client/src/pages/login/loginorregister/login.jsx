@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './login.css';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
 
-// Достаём переменную из окружения
+
 const apiBaseUrl = 'http://localhost:5001/api';
 console.log(apiBaseUrl);
 
@@ -11,8 +11,10 @@ function Login() {
     email: '',
     password: '',
   });
+  const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false); // Состояние загрузки
+  
+  const [loading, setLoading] = useState(false); 
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
@@ -26,29 +28,31 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Начинаем загрузку
-    setError(''); // Сбрасываем ошибки
-    setMessage(''); // Сбрасываем сообщения
+    setLoading(true);
+    setError(''); 
+    setMessage(''); 
 
     try {
-      // Отправляем запрос на сервер для проверки данных
-      const response = await axios.post(`${apiBaseUrl}/login`, {
-        email: formData.email,
-        password: formData.password,
-      });
-
-      // Проверяем ответ сервера
-      if (response.data.success) {
-        setMessage('Успешный вход');
-        // Здесь вы можете хранить данные пользователя, например, в localStorage или стейте
-      } else {
-        setError('Неверный логин или пароль');
+      const response = await fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+      }) 
+      if (!response.ok) {
+        throw new Error('Failed')
       }
+      const data =  await response.json()
+      console.log(data.userId)
+      
+      localStorage.setItem('userId', response.userId);
+      navigate('/main');
 
-      setLoading(false); // Заканчиваем загрузку
+      setLoading(false); 
     } catch (err) {
       setError(err.response?.data?.message || 'Ошибка входа');
-      setLoading(false); // Заканчиваем загрузку в случае ошибки
+      setLoading(false); 
     }
   };
 
@@ -107,7 +111,6 @@ function Login() {
                 onChange={handleChange}
               />
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                {/* Password eye icon */}
               </svg>
             </div>
           </div>

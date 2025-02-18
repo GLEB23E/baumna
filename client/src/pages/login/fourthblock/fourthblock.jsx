@@ -1,6 +1,5 @@
 import React from 'react';
 import './fourthblock.css'
-// Простой функциональный компонент
 function Fourthblock() {
   return (
     <div className="fourth_container">
