@@ -1,9 +1,15 @@
 import React, { useEffect } from "react"
 import { useState } from "react"
 import './mainpage.css'
+import { useNavigate } from 'react-router-dom'; 
 import { response } from "express"
+
+
+
+
 const levenshtein = require('levenshtein');
 const MainPage = () => {
+    const navigate = useNavigate();
     const [page, setPage] = useState(0)
     const [fileName, setFileName] = useState('');
     const [file, setFile] = useState(null);
@@ -92,6 +98,9 @@ const MainPage = () => {
                 }
                 
                 const data = await getData()
+                if (data.length > 3) {
+                    pages.style.display = 'flex'
+                }
                 const data2 = data.slice(0, 3)
                 block.innerHTML = '';
                 data2.forEach(element => {
@@ -100,7 +109,7 @@ const MainPage = () => {
                         block.innerHTML += el;
                     }
                 });
-                pages.style.display = 'flex'
+                
             }
             render()
         }
@@ -342,13 +351,17 @@ const MainPage = () => {
         setPage(0)
     }, [])
     
+    const LogOut = () => {
+        localStorage.clear();
+        navigate('/home')
+    }
     
     return (
         <div className="mainPage">
             <div className="profile">
                 <div className="prof_info">
                     <div className="photo">
-                        <img src="logo.png" alt="sur" />
+                        <img onClick={LogOut} style={{width: '30px', height: '30px'}} src="exit.png" alt="sur" />
                         <div className="nameinf">
                             <h2 className="name">
                                 {info.name}
@@ -361,13 +374,13 @@ const MainPage = () => {
                     <div className="line">
                     </div>
                     <div onClick={onsubs} className="store">
-                        <img src="logo.png" alt="store" />
+                        <img style={{width: '30px', height: '30px'}} src="store.png" alt="store" />
                         <h2>БИРЖА</h2>
                     </div>
                     <div className="line2">
                     </div>
                     <div onClick={onsuba} className="uppload">
-                        <img src="logo.png" alt="plus" />
+                        <img style={{width: '30px', height: '30px'}} src="plus.png" alt="plus" />
                         <h2>ДОБАВИТЬ  ОБЪЯВЛЕНИЕ</h2>
                     </div>
                     <div className="line2"></div>
@@ -376,7 +389,7 @@ const MainPage = () => {
             <div id='fs' className="storei">
                 <div className="input">
                     <input onChange={search} type="text" />
-                    <img src="logo.png" alt="search" />
+                    <img style={{width: '30px', height: '30px'}} src="search.png" alt="search" />
                 </div>
                 <div id='cards' className="cards"></div>
                 <div onClick={pagead} id="pages" className="pagesofcards">

@@ -1,17 +1,26 @@
 import React from 'react';
 import './firstblock.css'
+import { useNavigate } from 'react-router-dom'; 
 // Простой функциональный компонент
 function Firstblock() {
-  return (
+    const navigate = useNavigate();
+
+    const loger = () => {
+        navigate('/login')
+    }
+    const reg = () => {
+        navigate('/register')
+    }
+    return (
     <div className="first_container">
         <header>
             <h1>О нас</h1>
-            <h1>Предметы</h1>
+            <h1>lorem</h1>
             <h1>Почему мы?</h1>
             <h1>Подход к образованиюю</h1>
             <div className="first_login">
-                <h1>Войти</h1>
-                <h1>Зарегистрироваться</h1>
+                <h1 onClick={loger}>Войти</h1>
+                <h1 onClick={reg}>Зарегистрироваться</h1>
             </div>
         </header>
         <div className="first_content">
